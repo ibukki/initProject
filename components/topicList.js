@@ -44,11 +44,20 @@ var TopicList = React.createClass({
 		})
 	},
 	_renderRow:function(rowData, sectionId, rowId){
-		console.log("rendering list entry" + rowData);
+		var beginDate = rowData.beginDate;
+		if(beginDate){
+			beginDate = new Date(beginDate).toISOString().substring(0,10);
+		}
 		return (
 			<TouchableHighlight underlayColor='#ddd'>
-				<View>
-					<Text style={styles.jobTitle}>{rowData.title}</Text>
+				<View style={styles.topicContainer}>
+					<Text style={styles.title}>{rowData.title}</Text>
+					<Text numberOfLines={1} style={styles.description}>{rowData.description}</Text>
+					<View style={styles.authorAndDate}>
+						<Text style={styles.sLabel}>Owner:</Text><Text style={styles.owner}>{rowData.owner}</Text>
+						<Text style={styles.seperator}></Text>
+						<Text style={styles.sLabel}>Date:</Text><Text style={styles.date}>{beginDate}</Text>
+					</View>
 				</View>
 			</TouchableHighlight>
 		);
@@ -68,8 +77,42 @@ var styles = StyleSheet.create({
 	listView:{
 		flex:1
 	},
-	jobTitle:{
-		fontSize:10
+	topicContainer:{
+		flexDirection:'column',
+		padding:8,
+		borderBottomWidth:1,
+		borderColor:'#eee',
+		height:64	
+	},
+	title:{
+		fontSize:12
+	},
+	description:{
+		color:'#666',
+		marginTop:3,
+		fontSize:10,
+		overflow:'hidden'
+	},
+	authorAndDate:{
+		marginTop:8,
+		flexDirection:'row'
+	},
+	sLabel:{
+		fontSize:10,
+		color:'#666'
+	},
+	owner:{
+		fontSize:10,
+		color:'#666'
+	},
+	seperator:{
+		width:10,
+		borderLeftWidth:1,
+		borderColor:'#666'
+	},
+	date:{
+		fontSize:10,
+		color:'#666'
 	}
 });
 

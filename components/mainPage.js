@@ -149,7 +149,7 @@ var styles = StyleSheet.create({
 	sectionHeader:{
 		height:30,
 		flexDirection:'row',
-		backgroundColor:'#999',
+		backgroundColor:'#eee',
 		alignItems:'center',
 		marginTop:5,
 		justifyContent:"space-between"
