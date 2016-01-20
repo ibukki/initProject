@@ -1,7 +1,8 @@
 'use strict';
 
 var React = require('react-native');
-var topicList = require('./topicList')
+var topicList = require('./topicList');
+var userProfile = require('./userProfile');
 
 var {
 	StyleSheet,
@@ -43,7 +44,7 @@ var MainPage = React.createClass({
 
 			<View style={styles.container}>
 				<View style={styles.topNavi}>
-					<TouchableHighlight style={styles.tile} underlayColor='#99d9f4'>
+					<TouchableHighlight style={styles.tile} underlayColor='#99d9f4' onPress={this._visitUserProfile}>
 						<View style={styles.tileContent}>
 							<Image style={styles.image} source={require('../img/user-male.png')}></Image>
 							<Text style={styles.caption}>Profile</Text>
@@ -88,6 +89,12 @@ var MainPage = React.createClass({
 		this.props.navigator.push({
 			title: 'Topic List',
 			component: topicList
+		});
+	},
+	_visitUserProfile: function(){
+		this.props.navigator.push({
+			title: 'My Profile',
+			component: userProfile
 		});
 	},
 	renderRow: function(rowData, sectionId, rowID){
@@ -151,8 +158,11 @@ var styles = StyleSheet.create({
 		flexDirection:'row',
 		backgroundColor:'#eee',
 		alignItems:'center',
-		marginTop:5,
-		justifyContent:"space-between"
+		marginTop:15,
+		paddingLeft:5,
+		justifyContent:"space-between",
+		borderColor:'#ccc',
+		borderTopWidth:1
 	},
 	newsHeaderTitle:{
 		flex:3
@@ -169,11 +179,13 @@ var styles = StyleSheet.create({
 		alignItems:'center'
 	},
 	newsTitle:{
-		paddingLeft:3,
+		paddingLeft:5,
 		flex:2
 	},
 	newsText:{
-		flex:1
+		flex:1,
+		textAlign:"right",
+		paddingRight:8
 	}
 });
 
