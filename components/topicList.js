@@ -31,7 +31,6 @@ var TopicList = React.createClass({
 	},
 
 	fetchData: function(){
-		console.log("start to fetch data");
 		fetch(REQUEST_URL,{
 			headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }
 		})
@@ -63,7 +62,12 @@ var TopicList = React.createClass({
 		);
 	},
 	render:function(){
-		console.log("rendering list");
+		
+		if(!this.state.loaded){
+			return (
+				<Text style={styles.loadingText}>Loading...</Text>
+			);
+		}
 		return (
 			<ListView
 		        dataSource={this.state.dataSource}
@@ -74,23 +78,29 @@ var TopicList = React.createClass({
 });
 
 var styles = StyleSheet.create({
+
+	loadingText:{
+		marginTop:80,
+		padding:10
+	},
 	listView:{
-		flex:1
+		flex:1,
+		marginTop:60
 	},
 	topicContainer:{
 		flexDirection:'column',
 		padding:8,
 		borderBottomWidth:1,
 		borderColor:'#eee',
-		height:64	
+		height:80	
 	},
 	title:{
-		fontSize:12
+		fontSize:14
 	},
 	description:{
 		color:'#666',
 		marginTop:3,
-		fontSize:10,
+		fontSize:12,
 		overflow:'hidden'
 	},
 	authorAndDate:{
@@ -102,7 +112,7 @@ var styles = StyleSheet.create({
 		color:'#666'
 	},
 	owner:{
-		fontSize:10,
+		fontSize:12,
 		color:'#666'
 	},
 	seperator:{
@@ -111,7 +121,7 @@ var styles = StyleSheet.create({
 		borderColor:'#666'
 	},
 	date:{
-		fontSize:10,
+		fontSize:12,
 		color:'#666'
 	}
 });
